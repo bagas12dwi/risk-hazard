@@ -1,0 +1,25 @@
+.sidebar {
+  background-color: #1a4b7c;
+  min-height: 100%;
+  color: white;
+}
+.sidebar .nav-link {
+  color: white;
+  padding: 10px 20px;
+}
+.sidebar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.form-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+}
+.pdf-icon {
+  color: red;
+}
+.check-icon {
+  color: green;
+}
