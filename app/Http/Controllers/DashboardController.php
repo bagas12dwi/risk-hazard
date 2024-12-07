@@ -37,8 +37,10 @@ class DashboardController extends Controller
                 'revisi' => "$revisiNotif / $allNotif",
             ]);
         } else if (auth()->user()->role == 'pelapor') {
+            $area = Area::all();
             return view('menu.dashboard.index', [
                 'title' => 'Dahsboard',
+                'areas' => $area
             ]);
         }
     }

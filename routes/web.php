@@ -33,14 +33,18 @@ Route::get('/cekEmail/{email}', [ResetPasswordController::class, 'checkEmail'])-
 Route::post('/update-password', [ResetPasswordController::class, 'updatePassword'])->name('update-password');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/ganti-password', [ResetPasswordController::class, 'indexGantiPassword'])->name('ganti-password');
+    Route::post('/ganti-password', [ResetPasswordController::class, 'gantiPassword'])->name('update-ganti-password');
+});
 
-Route::get('/ganti-password', [ResetPasswordController::class, 'indexGantiPassword'])->name('ganti-password');
-Route::post('/ganti-password', [ResetPasswordController::class, 'gantiPassword'])->name('update-ganti-password');
 
+Route::group(['middleware' => ['auth', 'cekRole:pelapor']], function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/kecelakaan', [WorkAccidentController::class, 'index'])->name('kecelakaan');
+    Route::post('/store', [WorkAccidentController::class, 'store'])->name('store-laporan');
+    Route::get('/kejadian', [DangerousEventController::class, 'index'])->name('kejadian');
+    Route::get('/hampir', [AlmostAccidentController::class, 'index'])->name('hampir');
+    Route::get('/kotak-masuk', [NotificationController::class, 'index'])->name('inbox');
+});
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/kecelakaan', [WorkAccidentController::class, 'index'])->name('kecelakaan');
-Route::post('/store', [WorkAccidentController::class, 'store'])->name('store-laporan');
-Route::get('/kejadian', [DangerousEventController::class, 'index'])->name('kejadian');
-Route::get('/hampir', [AlmostAccidentController::class, 'index'])->name('hampir');
-Route::get('/kotak-masuk', [NotificationController::class, 'index'])->name('inbox');

@@ -25,9 +25,7 @@
                 </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2">
-                <input type="file" id="pdf_{{ $parameter }}_{{ $index }}"
-                    name="areas[{{ $index }}][pdf_{{ $parameter }}]" class="d-none">
-                @if ($area->{'pdf_' . $parameter})
+                @if (auth()->user()->role == 'pelapor')
                     <div class="d-flex align-items-center gap-2">
                         <a href="{{ URL::asset('storage/' . $area->{'pdf_' . $parameter}) }}" target="_blank"
                             class="nav-link">
@@ -35,23 +33,38 @@
                         </a>
                         @if ($area->{'is_approve_' . $parameter})
                             <i class="fas fa-check-circle text-success fs-4"></i>
-                        @else
-                            <input type="checkbox" class="btn-check rounded-circle"
-                                name="areas[{{ $index }}][is_approve_{{ $parameter }}]"
-                                id="success-{{ $index }}-{{ $parameter }}" value="1"
-                                autocomplete="off">
-                            <label class="btn btn-outline-success"
-                                for="success-{{ $index }}-{{ $parameter }}">
-                                <i class="fas fa-check-circle "></i></label>
+                        @else 
+                            <i class="far fa-check-circle text-muted fs-4"></i>
                         @endif
                     </div>
-                @endif
-
+                @else
+                    <input type="file" id="pdf_{{ $parameter }}_{{ $index }}"
+                        name="areas[{{ $index }}][pdf_{{ $parameter }}]" class="d-none">
+                    @if ($area->{'pdf_' . $parameter})
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="{{ URL::asset('storage/' . $area->{'pdf_' . $parameter}) }}" target="_blank"
+                                class="nav-link">
+                                <i class="fas fa-file-pdf text-danger fs-4"></i>
+                            </a>
+                            @if ($area->{'is_approve_' . $parameter})
+                                <i class="fas fa-check-circle text-success fs-4"></i>
+                            @else
+                                <input type="checkbox" class="btn-check rounded-circle"
+                                    name="areas[{{ $index }}][is_approve_{{ $parameter }}]"
+                                    id="success-{{ $index }}-{{ $parameter }}" value="1"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-success"
+                                    for="success-{{ $index }}-{{ $parameter }}">
+                                    <i class="fas fa-check-circle "></i></label>
+                            @endif
+                        </div>
+                    @endif
             </div>
-        </div>
-        @foreach ($errors->get("areas.$index.*") as $error)
-            <small class="text-danger d-block">{{ $error[0] }}</small>
-        @endforeach
+@endif
+</div>
+@foreach ($errors->get("areas.$index.*") as $error)
+    <small class="text-danger d-block">{{ $error[0] }}</small>
+@endforeach
 
-    </div>
+</div>
 @endforeach

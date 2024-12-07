@@ -19,20 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/login', [AuthController::class, 'indexLogin'])->name('login');
-Route::get('/register', [AuthController::class, 'indexRegister'])->name('register');
-Route::get('/reset-password', [AuthController::class, 'indexReset'])->name('reset-password');
-
-
 // HSE Route
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/kotak-masuk', [NotificationController::class, 'index'])->name('inbox');
-Route::get('/kotak-masuk/detail/{notifikasi}', [NotificationController::class, 'show'])->name('detail');
-Route::put('/kotak-masuk/update/{notifikasi}', [NotificationController::class, 'update'])->name('update');
-Route::get('/tindak-lanjut/detail/{notifikasi}', [FollowUpController::class, 'show'])->name('followup.detail');
-Route::put('/tindak-lanjut/update/{notifikasi}', [FollowUpController::class, 'update'])->name('followup.update');
-Route::get('/tindak-lanjut/show/{followUp}', [FollowUpController::class, 'detail'])->name('followup.show');
-Route::get('/tindak-lanjut', [FollowUpController::class, 'index'])->name('followup');
-Route::post('/store-area', [AreaController::class, 'store'])->name('store-area');
-Route::post('/update-area', [AreaController::class, 'update'])->name('update-area');
+Route::group(['middleware' => ['auth', 'cekRole:hse']], function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/kotak-masuk', [NotificationController::class, 'index'])->name('inbox');
+    Route::get('/kotak-masuk/detail/{notifikasi}', [NotificationController::class, 'show'])->name('detail');
+    Route::put('/kotak-masuk/update/{notifikasi}', [NotificationController::class, 'update'])->name('update');
+    Route::get('/tindak-lanjut/detail/{notifikasi}', [FollowUpController::class, 'show'])->name('followup.detail');
+    Route::put('/tindak-lanjut/update/{notifikasi}', [FollowUpController::class, 'update'])->name('followup.update');
+    Route::get('/tindak-lanjut/show/{followUp}', [FollowUpController::class, 'detail'])->name('followup.show');
+    Route::get('/tindak-lanjut', [FollowUpController::class, 'index'])->name('followup');
+    Route::post('/store-area', [AreaController::class, 'store'])->name('store-area');
+    Route::post('/update-area', [AreaController::class, 'update'])->name('update-area');
+});
