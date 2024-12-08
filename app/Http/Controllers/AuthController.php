@@ -80,7 +80,7 @@ class AuthController extends Controller
         } elseif ($level == 'hse') {
             if (Auth::attempt(['username' => $input['username'], 'password' => $input['password']])) {
                 $request->session()->regenerate();
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('hse.dashboard');
             }
             return back()->with('error', 'Username atau Password tidak sesuai !');
         } else {
