@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ViewPdfController;
 use App\Http\Controllers\WorkAccidentController;
 use App\Models\AlmostAccident;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -32,14 +33,17 @@ Route::get('/reset-password', [AuthController::class, 'indexReset'])->name('rese
 Route::get('/cekEmail/{email}', [ResetPasswordController::class, 'checkEmail'])->name('cek-email');
 Route::post('/update-password', [ResetPasswordController::class, 'updatePassword'])->name('update-password');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/view-pdf/{area}/{parameter}', [ViewPdfController::class, 'viewPdf'])->name('viewPdf');
+Route::get('/view-pdf-tindak-lanjut/{followUp}', [ViewPdfController::class, 'viewPdfTindakLanjut'])->name('viewPdfTindakLanjut');
 
-Route::group(['middleware' => ['auth']], function() {
+
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/ganti-password', [ResetPasswordController::class, 'indexGantiPassword'])->name('ganti-password');
     Route::post('/ganti-password', [ResetPasswordController::class, 'gantiPassword'])->name('update-ganti-password');
 });
 
 
-Route::group(['middleware' => ['auth', 'cekRole:pelapor']], function() {
+Route::group(['middleware' => ['auth', 'cekRole:pelapor']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/kecelakaan', [WorkAccidentController::class, 'index'])->name('kecelakaan');
     Route::post('/store', [WorkAccidentController::class, 'store'])->name('store-laporan');
@@ -47,4 +51,3 @@ Route::group(['middleware' => ['auth', 'cekRole:pelapor']], function() {
     Route::get('/hampir', [AlmostAccidentController::class, 'index'])->name('hampir');
     Route::get('/kotak-masuk', [NotificationController::class, 'index'])->name('inbox');
 });
-

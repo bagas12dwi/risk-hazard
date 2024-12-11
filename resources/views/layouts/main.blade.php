@@ -11,7 +11,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf_viewer.min.css" rel="stylesheet">
+
     <style>
+        iframe::-webkit-media-controls {
+            display: none !important;
+        }
+
         .nav-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
             cursor: pointer;
@@ -204,6 +210,8 @@
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+
 
     <script type="text/javascript">
         $(function() {
