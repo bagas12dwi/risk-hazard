@@ -8,7 +8,7 @@
             <h5 class="card-title text-primary mb-4 fw-bold text-uppercase">
                 {{ $notification->work_accident_name }}
             </h5>
-            <form action="{{ route('hse.update', $notification->id) }}" method="POST">
+            <form action="{{ route('admin.update', $notification->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 @if ($workAccident->report_type_id == 1)

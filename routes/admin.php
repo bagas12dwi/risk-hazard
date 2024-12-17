@@ -19,10 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Admin Route
-Route::group(['middleware' => ['auth', 'cekRole:admin']], function() {
+Route::group(['middleware' => ['auth', 'cekRole:admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/user', UserController::class)->names('user');
     Route::get('/kotak-masuk', [NotificationController::class, 'index'])->name('inbox');
     Route::get('/kotak-masuk/detail/{notifikasi}', [NotificationController::class, 'show'])->name('detail');
+    Route::put('/kotak-masuk/update/{notifikasi}', [NotificationController::class, 'update'])->name('update');
     Route::post('/update-area', [AreaController::class, 'update'])->name('update-area');
 });
