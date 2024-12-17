@@ -1,4 +1,4 @@
-@if ($followUp->document_path)
+@if (isset($followUp) && $followUp->document_path)
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#pdfTindakLanjutModal">
         <i class="fas fa-file-pdf"></i>
     </button>
@@ -21,10 +21,11 @@
 
 
 
+
 @push('script')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const url = "{{ route('viewPdfTindakLanjut', $followUp) }}";
+            const url = "{{ route('viewPdfTindakLanjut', $followUp ?? 0) }}";
             const pdfjsLib = window['pdfjs-dist/build/pdf'];
             pdfjsLib.GlobalWorkerOptions.workerSrc =
                 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
