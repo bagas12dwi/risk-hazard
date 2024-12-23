@@ -9,8 +9,6 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ViewPdfController;
 use App\Http\Controllers\WorkAccidentController;
-use App\Models\AlmostAccident;
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,4 +48,5 @@ Route::group(['middleware' => ['auth', 'cekRole:pelapor']], function () {
     Route::get('/kejadian', [DangerousEventController::class, 'index'])->name('kejadian');
     Route::get('/hampir', [AlmostAccidentController::class, 'index'])->name('hampir');
     Route::get('/kotak-masuk', [NotificationController::class, 'index'])->name('inbox');
+    Route::delete('/kotak-masuk/delete/{notifikasi}', [NotificationController::class, 'destroy'])->name('inbox.delete');
 });

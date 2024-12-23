@@ -131,8 +131,9 @@ class NotificationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Notification $notification)
+    public function destroy(Notification $notifikasi)
     {
-        //
+        Notification::destroy($notifikasi->id);
+        return redirect()->route('inbox')->with('success', 'Laporan berhasil dihapus!');
     }
 }
